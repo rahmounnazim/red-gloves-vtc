@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "PowerShell(Start-Process explorer.exe \"C:\\\\Users\\\\pc\\\\stage\\)\")",
+      "Bash(git --version)",
+      "Bash(gh --version)"
+    ]
+  }
+}

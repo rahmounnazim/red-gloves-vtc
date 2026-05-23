@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  RED GLOVES — Fichier : driver.html                      ║
+  ║  Page "Devenir Chauffeur"                                ║
+  ╚══════════════════════════════════════════════════════════╝
+-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Gloves — Devenir Chauffeur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="booking.html">Réserver</a></li>
+        <li><a href="auth.html" class="btn btn-red">Connexion</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════
+       HERO CHAUFFEUR
+  ═══════════════════════════════════════ -->
+  <section class="hero hero-chauffeur">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <div class="badge-hero">🥊 Rejoignez la flotte</div>
+        <h1>Conduisez avec<br><span class="text-red">Red Gloves</span></h1>
+        <p>Devenez chauffeur partenaire et profitez de revenus compétitifs, d'horaires libres et d'un support dédié 7j/7.</p>
+        <div class="avantages-rapides">
+          <span>💰 Jusqu'à 3 500€/mois</span>
+          <span>🕐 Horaires libres</span>
+          <span>📱 App dédiée</span>
+        </div>
+        <a href="#postuler" class="btn btn-red btn-lg">Postuler maintenant</a>
+      </div>
+      <div class="hero-visual">
+        <div class="voiture" style="font-size: 6rem;">🚗</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       AVANTAGES
+  ═══════════════════════════════════════ -->
+  <section class="section bg-sombre">
+    <div class="container">
+      <h2 class="titre-section">Pourquoi Red Gloves ?</h2>
+      <div class="avantages-grid">
+        <div class="avantage-carte">
+          <div class="av-icone">💵</div>
+          <h3>15% de commission</h3>
+          <p>L'une des plus basses du marché. Vous gardez l'essentiel de vos revenus.</p>
+        </div>
+        <div class="avantage-carte">
+          <div class="av-icone">⚡</div>
+          <h3>Paiement en 24h</h3>
+          <p>Vos gains virés directement sur votre compte bancaire en 24 heures.</p>
+        </div>
+        <div class="avantage-carte">
+          <div class="av-icone">🛡</div>
+          <h3>Assurance incluse</h3>
+          <p>Vous êtes couvert pendant toutes vos courses Red Gloves.</p>
+        </div>
+        <div class="avantage-carte">
+          <div class="av-icone">🤝</div>
+          <h3>Support 7j/7</h3>
+          <p>Une équipe disponible en permanence pour vous aider.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       SIMULATEUR DE REVENUS
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <h2 class="titre-section">Simulez vos revenus</h2>
+      <p class="sous-titre">Estimez ce que vous pouvez gagner chaque mois</p>
+
+      <div class="simulateur">
+        <div class="sim-controles">
+          <div class="champ">
+            <label>Heures travaillées par semaine : <strong id="affich-heures">35h</strong></label>
+            <!-- range = curseur glissant -->
+            <input type="range" id="slider-heures"
+                   min="10" max="60" value="35"
+                   oninput="calculerRevenus()" />
+          </div>
+          <div class="champ">
+            <label>Zone de travail</label>
+            <select id="select-zone" onchange="calculerRevenus()">
+              <option value="1.2">Paris Centre</option>
+              <option value="1.0" selected>Paris / Banlieue proche</option>
+              <option value="0.8">Banlieue éloignée</option>
+            </select>
+          </div>
+        </div>
+        <div class="sim-resultat">
+          <p>Revenu mensuel estimé</p>
+          <span id="montant-sim">2 100€</span>
+          <small>Après commission Red Gloves (15%)</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       CONDITIONS REQUISES
+  ═══════════════════════════════════════ -->
+  <section class="section bg-sombre">
+    <div class="container">
+      <h2 class="titre-section">Conditions requises</h2>
+      <div class="conditions-grid">
+        <div class="condition-item">✅ Permis de conduire valide depuis + de 3 ans</div>
+        <div class="condition-item">✅ Carte professionnelle VTC</div>
+        <div class="condition-item">✅ Véhicule récent (moins de 7 ans)</div>
+        <div class="condition-item">✅ Assurance professionnelle VTC</div>
+        <div class="condition-item">✅ Casier judiciaire vierge (extrait B3)</div>
+        <div class="condition-item">✅ Visite médicale à jour</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       FORMULAIRE DE CANDIDATURE
+       id="postuler" → cible du lien "Postuler maintenant"
+  ═══════════════════════════════════════ -->
+  <section class="section" id="postuler">
+    <div class="container">
+      <h2 class="titre-section">Rejoindre la flotte</h2>
+      <p class="sous-titre">Remplissez ce formulaire, nous vous recontacterons sous 48h</p>
+
+      <form class="form-candidature" onsubmit="envoyerCandidature(event)">
+
+        <div class="champs-ligne">
+          <div class="champ">
+            <label>Prénom *</label>
+            <input type="text" id="c-prenom" placeholder="Prénom" required />
+          </div>
+          <div class="champ">
+            <label>Nom *</label>
+            <input type="text" id="c-nom" placeholder="Nom" required />
+          </div>
+        </div>
+
+        <div class="champs-ligne">
+          <div class="champ">
+            <label>Email *</label>
+            <input type="email" id="c-email" placeholder="votre@email.com" required />
+          </div>
+          <div class="champ">
+            <label>Téléphone *</label>
+            <input type="tel" id="c-tel" placeholder="+33 6 00 00 00 00" required />
+          </div>
+        </div>
+
+        <div class="champs-ligne">
+          <div class="champ">
+            <label>Numéro de carte VTC *</label>
+            <input type="text" id="c-vtc" placeholder="VTC-2024-XXXXX" required />
+          </div>
+          <div class="champ">
+            <label>Véhicule (marque / modèle) *</label>
+            <input type="text" id="c-vehicule" placeholder="Ex: Peugeot 508" required />
+          </div>
+        </div>
+
+        <div class="champ">
+          <label>Message (optionnel)</label>
+          <textarea id="c-message" rows="3"
+                    placeholder="Parlez-nous de votre expérience, vos disponibilités..."></textarea>
+        </div>
+
+        <div class="champ">
+          <label class="label-checkbox">
+            <input type="checkbox" id="c-cgu" required />
+            J'accepte les <a href="#" class="text-red">conditions d'utilisation</a>
+            et la <a href="#" class="text-red">charte des chauffeurs</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-red btn-lg">
+          Envoyer ma candidature 🚗
+        </button>
+
+      </form>
+    </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="logo">🥊 Red<span>Gloves</span></span>
+      <p>© 2026 Red Gloves — VTC Paris & Île-de-France</p>
+      <div class="footer-liens">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGU</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

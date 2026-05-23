@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Gloves — Réserver</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body class="booking-body">
+
+<nav class="navbar scrolled">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
+    <div id="nav-user"></div>
+  </div>
+</nav>
+
+<div class="resa-layout">
+
+  <!-- ══ PANNEAU GAUCHE ══ -->
+  <aside class="resa-panneau">
+
+    <div class="resa-titre">
+      <h1>Réserver un trajet</h1>
+      <p>Bonjour <strong id="user-label">—</strong> 👋</p>
+    </div>
+
+    <!-- Barre de progression -->
+    <div class="prog-barre-etapes">
+      <div class="prog-step actif courant" data-step="1">1<span>Trajet</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step" data-step="2">2<span>Véhicule</span></div>
+      <div class="prog-line"></div>
+      <div class="prog-step" data-step="3">3<span>Confirmer</span></div>
+    </div>
+
+    <!-- ── ÉTAPE 1 : Adresses ── -->
+    <div class="etape" data-etape="1">
+      <div class="champ adresse-wrap">
+        <label>📍 Adresse de départ</label>
+        <input type="text" id="input-depart" placeholder="Ex: 21 rue Yves le Caignard, La Garenne Colombes" autocomplete="off"/>
+      </div>
+      <div class="champ adresse-wrap">
+        <label>🏁 Adresse d'arrivée</label>
+        <input type="text" id="input-dest" placeholder="Ex: Aéroport Charles de Gaulle Terminal 2" autocomplete="off"/>
+      </div>
+
+      <div class="info-adresse">
+        <span>💡</span>
+        <span>Les adresses sont vérifiées en temps réel via OpenStreetMap. Sélectionnez une suggestion dans la liste.</span>
+      </div>
+
+      <div class="trajet-resultat cache" id="trajet-resultat">
+        <div class="tr-stat"><span>📏 Distance</span><strong id="affich-distance">—</strong></div>
+        <div class="tr-stat"><span>⏱ Durée est.</span><strong id="affich-duree">—</strong></div>
+      </div>
+
+      <button class="btn btn-red btn-full" id="btn-calculer">Calculer le trajet →</button>
+    </div>
+
+    <!-- ── ÉTAPE 2 : Véhicule ── -->
+    <div class="etape cache" data-etape="2">
+      <div class="step-label">Choisissez votre véhicule</div>
+      <div id="liste-vehicules"></div>
+      <div class="nav-btns">
+        <button class="btn btn-outline" onclick="allerEtape(1)">← Retour</button>
+        <button class="btn btn-red"     id="btn-vers-resume">Continuer →</button>
+      </div>
+    </div>
+
+    <!-- ── ÉTAPE 3 : Résumé ── -->
+    <div class="etape cache" data-etape="3">
+      <div class="step-label">Confirmer votre course</div>
+      <div class="resume-box">
+        <div class="resume-ligne"><span>Départ</span>      <strong id="res-depart">—</strong></div>
+        <div class="resume-ligne"><span>Arrivée</span>     <strong id="res-dest">—</strong></div>
+        <div class="resume-ligne"><span>Distance</span>    <span id="res-distance">—</span></div>
+        <div class="resume-ligne"><span>Durée</span>       <span id="res-duree">—</span></div>
+        <div class="resume-ligne"><span>Véhicule</span>    <span id="res-vehicule">—</span></div>
+        <div class="resume-ligne total"><span>Total estimé</span><strong id="res-prix" class="red">—</strong></div>
+      </div>
+      <div class="champ">
+        <label>Mode de paiement</label>
+        <select id="paiement">
+          <option value="carte">💳 Carte bancaire</option>
+          <option value="especes">💵 Espèces</option>
+        </select>
+      </div>
+      <div class="champ">
+        <label>Note pour le chauffeur <small class="gris">(optionnel)</small></label>
+        <input type="text" id="note-course" placeholder="Ex: Bagages volumineux, sonnez au 2…"/>
+      </div>
+      <div class="nav-btns">
+        <button class="btn btn-outline" onclick="allerEtape(2)">← Retour</button>
+        <button class="btn btn-red"     id="btn-confirmer">✅ Confirmer la course</button>
+      </div>
+    </div>
+
+    <!-- ── ÉTAPE 4 : Confirmée ── -->
+    <div class="etape cache" data-etape="4">
+      <div class="confirmation">
+        <div class="conf-ico">✅</div>
+        <h2>Course confirmée !</h2>
+        <p>Votre chauffeur arrive dans <strong id="eta-val">5</strong> min</p>
+        <div class="conf-prog">
+          <div class="conf-barre"><div id="prog-fill"></div></div>
+          <p id="statut-msg">Course publiée — recherche d'un chauffeur…</p>
+        </div>
+        <button class="btn btn-outline btn-full" onclick="recommencer()">+ Nouveau trajet</button>
+        <a href="dashboard.html" class="btn btn-red btn-full" style="margin-top:8px">Voir mes courses →</a>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ══ CARTE DROITE ══ -->
+  <main class="resa-carte">
+    <div class="carte-fond">
+      <div class="carte-msg" id="carte-msg">
+        <p style="font-size:3rem">🗺️</p>
+        <p>Entrez vos adresses pour voir le trajet</p>
+      </div>
+      <div class="pin pin-a cache" id="marqueur-a"><span>A</span></div>
+      <div class="pin pin-b cache" id="marqueur-b"><span>B</span></div>
+    </div>
+    <div class="badge-chauffeurs">
+      <span class="dot-vert"></span>
+      <span id="nb-chauffeurs">12</span> chauffeurs disponibles
+    </div>
+  </main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/utils.js"></script>
+<script src="js/booking.js"></script>
+<script>
+  /* Affiche les marqueurs quand un trajet est calculé */
+  const _orig = allerEtape;
+  allerEtape = function(n) {
+    _orig(n);
+    if (n >= 2) {
+      document.getElementById('carte-msg').style.display = 'none';
+      document.getElementById('marqueur-a').classList.remove('cache');
+      document.getElementById('marqueur-b').classList.remove('cache');
+      document.getElementById('trajet-resultat').classList.remove('cache');
+    }
+  };
+</script>
+</body>
+</html>

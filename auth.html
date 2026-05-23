@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Gloves — Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+<nav class="navbar scrolled">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
+    <div id="nav-user"></div>
+  </div>
+</nav>
+
+<div class="auth-page">
+
+  <!-- Panneau gauche décoratif -->
+  <div class="auth-gauche">
+    <div class="auth-visuel">
+      <div style="font-size:5rem;margin-bottom:20px;">🥊</div>
+      <h2>Bienvenue sur<br><span class="red">Red Gloves</span></h2>
+      <p>La plateforme VTC de confiance à Paris et en Île-de-France.</p>
+      <div class="auth-stats">
+        <div><strong>500+</strong><small>Chauffeurs</small></div>
+        <div><strong>24/7</strong><small>Disponible</small></div>
+        <div><strong>5 min</strong><small>d'attente moy.</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panneau droit : formulaires -->
+  <div class="auth-droite">
+    <div class="auth-boite">
+
+      <div class="auth-onglets">
+        <button class="onglet actif" data-onglet="connexion"   onclick="changerOnglet('connexion')">Connexion</button>
+        <button class="onglet"       data-onglet="inscription" onclick="changerOnglet('inscription')">Créer un compte</button>
+      </div>
+
+      <!-- ── CONNEXION ── -->
+      <form id="form-connexion">
+        <h1>Bon retour 👋</h1>
+        <p class="auth-sub">Connectez-vous à votre espace Red Gloves</p>
+
+        <div class="champ">
+          <label>Adresse e-mail</label>
+          <input type="email" id="login-email" placeholder="exemple@email.com" required />
+        </div>
+        <div class="champ">
+          <label>Mot de passe</label>
+          <div class="pw-wrap">
+            <input type="password" id="login-mdp" placeholder="••••••••" required />
+            <button type="button" class="pw-eye" onclick="toggleMdp('login-mdp',this)">👁</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-red btn-full">Se connecter</button>
+        <p class="switch-txt">Pas de compte ? <a href="#" onclick="changerOnglet('inscription')">S'inscrire gratuitement</a></p>
+      </form>
+
+      <!-- ── INSCRIPTION ── -->
+      <form id="form-inscription" class="cache">
+        <h1>Créer un compte</h1>
+        <p class="auth-sub">Inscrivez-vous en tant que client ou chauffeur</p>
+
+        <!-- Choix du rôle -->
+        <div class="role-choix">
+          <label class="role-carte actif" id="role-client-card">
+            <input type="radio" name="role" value="client" checked onchange="changerRole('client')" />
+            <span class="role-ico">👤</span>
+            <strong>Client</strong>
+            <small>Je veux réserver des VTC</small>
+          </label>
+          <label class="role-carte" id="role-chauffeur-card">
+            <input type="radio" name="role" value="chauffeur" onchange="changerRole('chauffeur')" />
+            <span class="role-ico">🚗</span>
+            <strong>Chauffeur</strong>
+            <small>Je veux transporter des clients</small>
+          </label>
+        </div>
+
+        <div class="champs-ligne">
+          <div class="champ">
+            <label>Prénom *</label>
+            <input type="text" id="reg-prenom" placeholder="Mohamed" required />
+          </div>
+          <div class="champ">
+            <label>Nom *</label>
+            <input type="text" id="reg-nom" placeholder="Rahmoun" required />
+          </div>
+        </div>
+
+        <div class="champ">
+          <label>Adresse e-mail *</label>
+          <input type="email" id="reg-email" placeholder="exemple@email.com" required />
+        </div>
+
+        <div class="champ">
+          <label>Téléphone * <small class="gris">(format : 06 12 34 56 78)</small></label>
+          <input type="tel" id="reg-tel" placeholder="06 12 34 56 78" required />
+        </div>
+
+        <div class="champ">
+          <label>Mot de passe * <small class="gris">(8 caractères min.)</small></label>
+          <div class="pw-wrap">
+            <input type="password" id="reg-mdp" placeholder="••••••••" required minlength="8"
+                   oninput="afficherForce(this.value)" />
+            <button type="button" class="pw-eye" onclick="toggleMdp('reg-mdp',this)">👁</button>
+          </div>
+          <div class="force-barre"><div id="force-fill"></div></div>
+          <small id="force-label"></small>
+        </div>
+
+        <!-- Champs supplémentaires pour les chauffeurs -->
+        <div id="bloc-chauffeur" class="cache">
+          <div class="separateur-section">📋 Informations chauffeur</div>
+          <div class="champ">
+            <label>Numéro de carte VTC *</label>
+            <input type="text" id="reg-vtc" placeholder="Ex: VTC-2024-XXXXX" />
+          </div>
+          <div class="champ">
+            <label>Véhicule (marque + modèle) *</label>
+            <input type="text" id="reg-vehicule" placeholder="Ex: Peugeot 508 Noire" />
+          </div>
+        </div>
+
+        <div class="champ">
+          <label class="label-cb">
+            <input type="checkbox" id="reg-cgu" required />
+            J'accepte les <a href="#" class="red">CGU</a> et la <a href="#" class="red">politique de confidentialité</a>
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-red btn-full">Créer mon compte</button>
+        <p class="switch-txt">Déjà un compte ? <a href="#" onclick="changerOnglet('connexion')">Se connecter</a></p>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script>
+  function toggleMdp(id, btn) {
+    const inp = document.getElementById(id);
+    inp.type = inp.type === 'password' ? 'text' : 'password';
+    btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+  }
+  function changerRole(role) {
+    document.getElementById('role-client-card').classList.toggle('actif', role === 'client');
+    document.getElementById('role-chauffeur-card').classList.toggle('actif', role === 'chauffeur');
+    document.getElementById('bloc-chauffeur').classList.toggle('cache', role !== 'chauffeur');
+  }
+</script>
+</body>
+</html>

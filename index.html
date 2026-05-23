@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Gloves — VTC Paris</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="driver.html">Devenir chauffeur</a></li>
+    </ul>
+    <div id="nav-user"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Votre chauffeur privé<br><span class="red">à Paris, en 5 min</span></h1>
+      <p>Des chauffeurs professionnels vérifiés, disponibles 24h/24 et 7j/7 en Île-de-France.</p>
+      <div class="hero-btns">
+        <a href="booking.html" class="btn btn-red btn-lg">Réserver maintenant</a>
+        <a href="auth.html#inscription" class="btn btn-outline btn-lg">Créer un compte</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="voiture-anim">🚗</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bande">
+  <div class="container stats-grid">
+    <div class="stat"><strong>500+</strong><span>Chauffeurs actifs</span></div>
+    <div class="stat"><strong>15 000+</strong><span>Courses effectuées</span></div>
+    <div class="stat"><strong>98%</strong><span>Clients satisfaits</span></div>
+    <div class="stat"><strong>24/7</strong><span>Disponible</span></div>
+  </div>
+</section>
+
+<!-- COMMENT ÇA MARCHE -->
+<section class="section">
+  <div class="container">
+    <h2 class="titre-section">Comment ça marche ?</h2>
+    <p class="sous-titre">Réservez en 3 étapes, adresses vérifiées en temps réel</p>
+    <div class="etapes-grid">
+      <div class="etape-carte">
+        <div class="etape-num">01</div>
+        <div class="etape-ico">📍</div>
+        <h3>Entrez vos adresses</h3>
+        <p>L'autocomplétion vérifie vos adresses via OpenStreetMap en temps réel.</p>
+      </div>
+      <div class="etape-carte">
+        <div class="etape-num">02</div>
+        <div class="etape-ico">🚗</div>
+        <h3>Choisissez un véhicule</h3>
+        <p>Standard, Business ou Van — prix calculé selon la distance GPS réelle.</p>
+      </div>
+      <div class="etape-carte">
+        <div class="etape-num">03</div>
+        <div class="etape-ico">✅</div>
+        <h3>Votre chauffeur arrive</h3>
+        <p>Confirmez et suivez la progression de votre chauffeur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section bg-sombre" id="services">
+  <div class="container">
+    <h2 class="titre-section">Nos services</h2>
+    <p class="sous-titre">Une flotte adaptée à tous vos besoins</p>
+    <div class="services-grid">
+      <div class="service-carte">
+        <div class="service-ico">🚗</div>
+        <h3>Red Standard</h3>
+        <p>Berline confortable pour vos trajets quotidiens.</p>
+        <div class="prix">À partir de <strong>8€</strong></div>
+        <a href="booking.html" class="btn btn-outline btn-sm">Réserver</a>
+      </div>
+      <div class="service-carte featured">
+        <div class="badge-pop">⭐ Populaire</div>
+        <div class="service-ico">🚙</div>
+        <h3>Red Business</h3>
+        <p>Véhicule haut de gamme pour vos déplacements pro.</p>
+        <div class="prix">À partir de <strong>15€</strong></div>
+        <a href="booking.html" class="btn btn-red btn-sm">Réserver</a>
+      </div>
+      <div class="service-carte">
+        <div class="service-ico">🚐</div>
+        <h3>Red Van</h3>
+        <p>Grand véhicule pour groupes et bagages volumineux.</p>
+        <div class="prix">À partir de <strong>20€</strong></div>
+        <a href="booking.html" class="btn btn-outline btn-sm">Réserver</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="logo">🥊 Red<span>Gloves</span></span>
+    <p>© 2026 Red Gloves — 21 rue Yves le Caignard, 92250 La Garenne Colombes</p>
+    <div class="footer-liens">
+      <a href="driver.html">Devenir chauffeur</a>
+      <a href="auth.html">Connexion</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="js/utils.js"></script>
+</body>
+</html>

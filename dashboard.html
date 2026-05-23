@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Gloves — Mon espace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css"/>
+</head>
+<body class="dash-body">
+
+<nav class="navbar scrolled">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
+    <div id="nav-user"></div>
+  </div>
+</nav>
+
+<div class="dash-layout">
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="dash-sidebar">
+
+    <!-- Carte utilisateur -->
+    <div class="user-card">
+      <div class="user-avatar" id="role-badge">👤</div>
+      <div>
+        <strong id="user-prenom">—</strong>
+        <small id="user-email">—</small>
+      </div>
+    </div>
+
+    <!-- Toggle En ligne (chauffeur seulement) -->
+    <div id="bloc-en-ligne" class="en-ligne-bloc cache">
+      <label id="label-en-ligne">🔴 Hors ligne</label>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggle-en-ligne"/>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Navigation CLIENT -->
+    <nav id="sidebar-client" class="sidebar-nav cache">
+      <button class="sidebar-lien" data-section="sec-reserver"   onclick="afficherSection('sec-reserver')">🗺️ Réserver</button>
+      <button class="sidebar-lien" data-section="sec-historique"  onclick="afficherSection('sec-historique')">📋 Historique</button>
+      <button class="sidebar-lien" data-section="sec-profil"      onclick="afficherSection('sec-profil')">⚙️ Profil</button>
+    </nav>
+
+    <!-- Navigation CHAUFFEUR -->
+    <nav id="sidebar-chauffeur" class="sidebar-nav cache">
+      <button class="sidebar-lien" data-section="sec-disponibles"  onclick="afficherSection('sec-disponibles')">🔔 Courses disponibles</button>
+      <button class="sidebar-lien" data-section="sec-mes-courses"  onclick="afficherSection('sec-mes-courses')">📋 Mes courses</button>
+      <button class="sidebar-lien" data-section="sec-stats"        onclick="afficherSection('sec-stats')">📊 Statistiques</button>
+      <button class="sidebar-lien" data-section="sec-profil"       onclick="afficherSection('sec-profil')">⚙️ Profil</button>
+    </nav>
+
+    <button class="btn btn-outline btn-full" style="margin-top:auto" onclick="deconnexion()">Déconnexion</button>
+  </aside>
+
+  <!-- ══ CONTENU PRINCIPAL ══ -->
+  <main class="dash-main">
+
+    <!-- ─── CLIENT : Réserver ─── -->
+    <div class="dash-section" id="sec-reserver">
+      <h2>Réserver un trajet</h2>
+      <p class="dash-sub">Vérification d'adresse en temps réel via OpenStreetMap</p>
+      <div class="dash-form">
+        <div class="champ adresse-wrap">
+          <label>📍 Départ</label>
+          <input type="text" id="dash-depart" placeholder="Adresse de départ" autocomplete="off"/>
+        </div>
+        <div class="champ adresse-wrap">
+          <label>🏁 Destination</label>
+          <input type="text" id="dash-dest" placeholder="Adresse d'arrivée" autocomplete="off"/>
+        </div>
+        <div class="info-adresse">
+          <span>💡</span><span>Sélectionnez une adresse dans les suggestions pour la valider.</span>
+        </div>
+        <button class="btn btn-red" id="dash-btn-calculer">Réserver maintenant →</button>
+      </div>
+    </div>
+
+    <!-- ─── CLIENT : Historique ─── -->
+    <div class="dash-section cache" id="sec-historique">
+      <h2>Mes courses</h2>
+      <p class="dash-sub">Historique de tous vos trajets</p>
+      <div id="liste-historique"></div>
+    </div>
+
+    <!-- ─── CHAUFFEUR : Courses disponibles ─── -->
+    <div class="dash-section cache" id="sec-disponibles">
+      <div class="section-header">
+        <div>
+          <h2>Courses disponibles</h2>
+          <p class="dash-sub">Acceptez ou refusez les courses des clients</p>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="chargerDisponibles()">↻ Actualiser</button>
+      </div>
+      <div id="liste-disponibles"></div>
+    </div>
+
+    <!-- ─── CHAUFFEUR : Mes courses ─── -->
+    <div class="dash-section cache" id="sec-mes-courses">
+      <h2>Mes courses acceptées</h2>
+      <p class="dash-sub">Courses que vous avez prises en charge</p>
+      <div id="liste-mes-courses"></div>
+    </div>
+
+    <!-- ─── CHAUFFEUR : Statistiques ─── -->
+    <div class="dash-section cache" id="sec-stats">
+      <h2>Mes statistiques</h2>
+      <p class="dash-sub">Vos performances sur Red Gloves</p>
+      <div class="stats-dash">
+        <div class="stat-dash-card">
+          <span class="sd-ico">🚗</span>
+          <strong id="stat-courses">—</strong>
+          <small>Courses effectuées</small>
+        </div>
+        <div class="stat-dash-card">
+          <span class="sd-ico">💰</span>
+          <strong id="stat-revenus">—</strong>
+          <small>Revenus totaux</small>
+        </div>
+        <div class="stat-dash-card">
+          <span class="sd-ico">⭐</span>
+          <strong id="stat-note">—</strong>
+          <small>Note moyenne</small>
+        </div>
+        <div class="stat-dash-card">
+          <span class="sd-ico">📅</span>
+          <strong id="stat-semaine">—</strong>
+          <small>Cette semaine (est.)</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── COMMUN : Profil ─── -->
+    <div class="dash-section cache" id="sec-profil">
+      <h2>Mon profil</h2>
+      <p class="dash-sub">Modifiez vos informations personnelles</p>
+      <form class="dash-form" id="form-profil">
+        <div class="champs-ligne">
+          <div class="champ"><label>Prénom</label><input type="text" id="p-prenom"/></div>
+          <div class="champ"><label>Nom</label>   <input type="text" id="p-nom"/></div>
+        </div>
+        <div class="champ"><label>Email</label>    <input type="email" id="p-email" disabled/></div>
+        <div class="champ"><label>Téléphone</label><input type="tel"   id="p-tel"/></div>
+        <div class="champ" id="champ-vehicule" style="display:none">
+          <label>Véhicule</label><input type="text" id="p-vehicule"/>
+        </div>
+        <button type="submit" class="btn btn-red">Enregistrer les modifications</button>
+      </form>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="js/utils.js"></script>
+<script src="js/dashboard.js"></script>
+<script>
+  /* Affiche le champ véhicule pour les chauffeurs */
+  if (DB.getSession()?.role === 'chauffeur') {
+    document.getElementById('champ-vehicule').style.display = '';
+    document.getElementById('bloc-en-ligne').classList.remove('cache');
+  }
+</script>
+</body>
+</html>
