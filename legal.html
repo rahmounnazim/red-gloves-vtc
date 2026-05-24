@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Red Gloves — Mentions légales & CGU</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥊</text></svg>">
+  <link rel="stylesheet" href="css/main.css"/>
+  <style>
+    .legal-page { padding: 100px 0 70px; min-height: 100vh; }
+    .legal-tabs { display: flex; gap: 4px; background: var(--bg3); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 36px; max-width: 520px; }
+    .legal-tab  { flex: 1; padding: 9px 12px; background: none; border: none; color: var(--gray); font-family: var(--font); font-size: .86rem; font-weight: 600; cursor: pointer; border-radius: 6px; transition: var(--trans); }
+    .legal-tab.actif { background: var(--red); color: #fff; }
+    .legal-section { display: none; max-width: 760px; }
+    .legal-section.visible { display: block; animation: fadeInPage .25s ease; }
+    .legal-section h1 { font-size: 1.7rem; font-weight: 800; margin-bottom: 6px; }
+    .legal-section h2 { font-size: 1.05rem; font-weight: 700; margin: 28px 0 10px; color: var(--red); }
+    .legal-section p  { color: var(--gray2); font-size: .88rem; line-height: 1.75; margin-bottom: 10px; }
+    .legal-section ul { color: var(--gray2); font-size: .88rem; line-height: 1.75; margin: 0 0 10px 20px; }
+    .legal-section ul li { margin-bottom: 4px; }
+    .legal-section strong { color: var(--white); }
+    .legal-date { color: var(--gray); font-size: .8rem; margin-bottom: 28px; display: block; }
+    .legal-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar scrolled">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
+    <div id="nav-user"></div>
+  </div>
+</nav>
+
+<div class="legal-page">
+  <div class="container">
+
+    <div class="legal-tabs">
+      <button class="legal-tab actif" onclick="afficherOnglet('cgu',this)">CGU</button>
+      <button class="legal-tab"       onclick="afficherOnglet('confidentialite',this)">Confidentialité</button>
+      <button class="legal-tab"       onclick="afficherOnglet('mentions',this)">Mentions légales</button>
+    </div>
+
+    <!-- ══ CGU ══ -->
+    <div class="legal-section visible" id="tab-cgu">
+      <h1>Conditions Générales d'Utilisation</h1>
+      <span class="legal-date">Dernière mise à jour : janvier 2026</span>
+
+      <h2>1. Objet</h2>
+      <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation de la plateforme <strong>Red Gloves</strong>, service de mise en relation entre des clients et des chauffeurs professionnels VTC (Voiture de Tourisme avec Chauffeur) en Île-de-France.</p>
+      <p>En créant un compte ou en utilisant le service, vous acceptez sans réserve les présentes CGU.</p>
+
+      <h2>2. Accès au service</h2>
+      <p>Le service Red Gloves est accessible à toute personne physique majeure disposant d'un accès à internet et d'un compte valide. L'inscription est gratuite pour les clients comme pour les chauffeurs.</p>
+      <p>Red Gloves se réserve le droit de suspendre ou de supprimer tout compte ne respectant pas les présentes conditions.</p>
+
+      <h2>3. Inscription et responsabilité du compte</h2>
+      <p>Lors de l'inscription, vous vous engagez à fournir des informations exactes, complètes et à jour. Vous êtes seul responsable de la confidentialité de vos identifiants de connexion.</p>
+      <ul>
+        <li>Un seul compte par personne physique est autorisé.</li>
+        <li>Tout usage frauduleux ou usurpation d'identité entraîne la suppression immédiate du compte.</li>
+        <li>Vous devez nous informer de toute utilisation non autorisée de votre compte.</li>
+      </ul>
+
+      <h2>4. Utilisation du service — Clients</h2>
+      <p>En tant que client, vous pouvez :</p>
+      <ul>
+        <li>Saisir une adresse de départ et d'arrivée vérifiées en temps réel.</li>
+        <li>Choisir un type de véhicule (Standard, Business ou Van) et consulter le tarif estimé.</li>
+        <li>Confirmer une course et suivre son état depuis votre espace personnel.</li>
+        <li>Annuler une course tant qu'elle n'a pas été acceptée par un chauffeur.</li>
+        <li>Attribuer une note au chauffeur à l'issue d'une course terminée.</li>
+      </ul>
+      <p>Toute demande abusive, harcèlement envers un chauffeur ou fausse commande entraîne la suspension du compte.</p>
+
+      <h2>5. Obligations du chauffeur</h2>
+      <p>Pour exercer sur la plateforme Red Gloves, chaque chauffeur doit :</p>
+      <ul>
+        <li>Être titulaire d'une carte professionnelle VTC en cours de validité.</li>
+        <li>Disposer d'un véhicule de moins de 7 ans, assuré pour le transport de personnes.</li>
+        <li>Posséder un permis de conduire valide depuis au moins 3 ans.</li>
+        <li>Respecter le code de la route et assurer la sécurité des passagers.</li>
+        <li>Maintenir un comportement professionnel et courtois en toutes circonstances.</li>
+      </ul>
+      <p>Red Gloves se réserve le droit de retirer l'accès à tout chauffeur dont la note moyenne descend sous 3/5 ou dont le comportement est jugé inapproprié.</p>
+
+      <h2>6. Tarification</h2>
+      <p>Les tarifs affichés sont des <strong>estimations</strong> calculées selon la distance GPS réelle (formule de Haversine) et la grille tarifaire suivante :</p>
+      <ul>
+        <li><strong>Red Standard :</strong> 5€ de base + 1,80€ / km</li>
+        <li><strong>Red Business :</strong> 10€ de base + 2,80€ / km</li>
+        <li><strong>Red Van :</strong> 15€ de base + 3,20€ / km</li>
+      </ul>
+      <p>Le montant définitif peut varier selon les conditions réelles du trajet (embouteillages, modifications de parcours). La commission Red Gloves est de <strong>15%</strong> sur chaque course.</p>
+
+      <h2>7. Responsabilité</h2>
+      <p>Red Gloves est une plateforme de mise en relation. En cas de litige entre un client et un chauffeur, Red Gloves agit comme médiateur mais ne peut être tenu responsable des dommages causés lors d'une course.</p>
+      <p>Red Gloves décline toute responsabilité en cas d'indisponibilité temporaire du service ou de panne technique indépendante de sa volonté.</p>
+
+      <h2>8. Modification des CGU</h2>
+      <p>Red Gloves se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés par email ou notification dans l'application. La poursuite de l'utilisation du service après modification vaut acceptation des nouvelles conditions.</p>
+
+      <h2>9. Litiges</h2>
+      <p>En cas de litige, une solution amiable sera privilégiée. À défaut, les tribunaux compétents du ressort de Nanterre (92) seront saisis, le droit français étant applicable.</p>
+    </div>
+
+    <!-- ══ CONFIDENTIALITÉ ══ -->
+    <div class="legal-section" id="tab-confidentialite">
+      <h1>Politique de confidentialité</h1>
+      <span class="legal-date">Dernière mise à jour : janvier 2026 — Conforme au RGPD</span>
+
+      <h2>1. Responsable du traitement</h2>
+      <p><strong>Red Gloves</strong> — 21 rue Yves le Caignard, 92250 La Garenne Colombes<br>
+      Contact : <a href="mailto:o.redgloves@gmail.com" style="color:var(--red)">o.redgloves@gmail.com</a></p>
+
+      <h2>2. Données collectées</h2>
+      <p>Lors de votre inscription et utilisation du service, nous collectons :</p>
+      <ul>
+        <li><strong>Identité :</strong> prénom, nom</li>
+        <li><strong>Contact :</strong> adresse email, numéro de téléphone</li>
+        <li><strong>Données de course :</strong> adresses de départ et d'arrivée, distance, durée, montant</li>
+        <li><strong>Données chauffeur :</strong> numéro de carte VTC, véhicule, statut en ligne</li>
+        <li><strong>Technique :</strong> données de navigation stockées localement (localStorage)</li>
+      </ul>
+      <p><strong>Aucune donnée bancaire</strong> n'est collectée directement par Red Gloves.</p>
+
+      <h2>3. Finalités du traitement</h2>
+      <ul>
+        <li>Création et gestion de votre compte utilisateur</li>
+        <li>Mise en relation clients / chauffeurs</li>
+        <li>Calcul des tarifs et suivi des courses</li>
+        <li>Amélioration du service et statistiques internes</li>
+        <li>Communication relative à votre compte</li>
+      </ul>
+
+      <h2>4. Base légale</h2>
+      <p>Le traitement de vos données repose sur l'exécution du contrat (CGU acceptées) et, le cas échéant, votre consentement explicite.</p>
+
+      <h2>5. Durée de conservation</h2>
+      <ul>
+        <li>Données de compte : jusqu'à la suppression du compte + 3 ans</li>
+        <li>Historique des courses : 5 ans (obligation légale comptable)</li>
+        <li>Données techniques : durée de la session</li>
+      </ul>
+
+      <h2>6. Partage des données</h2>
+      <p>Vos données ne sont <strong>jamais vendues</strong> à des tiers. Elles peuvent être partagées avec :</p>
+      <ul>
+        <li>Le chauffeur affecté à votre course (prénom et numéro masqué)</li>
+        <li>Les autorités compétentes sur réquisition judiciaire</li>
+      </ul>
+
+      <h2>7. Vos droits (RGPD)</h2>
+      <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :</p>
+      <ul>
+        <li><strong>Droit d'accès</strong> — obtenir une copie de vos données</li>
+        <li><strong>Droit de rectification</strong> — corriger vos informations</li>
+        <li><strong>Droit à l'effacement</strong> — supprimer votre compte et vos données</li>
+        <li><strong>Droit d'opposition</strong> — vous opposer à certains traitements</li>
+        <li><strong>Droit à la portabilité</strong> — recevoir vos données dans un format structuré</li>
+      </ul>
+      <p>Pour exercer ces droits : <a href="mailto:o.redgloves@gmail.com" style="color:var(--red)">o.redgloves@gmail.com</a><br>
+      Vous pouvez également contacter la <strong>CNIL</strong> : <a href="https://www.cnil.fr" target="_blank" style="color:var(--red)">www.cnil.fr</a></p>
+
+      <h2>8. Cookies</h2>
+      <p>Le site Red Gloves n'utilise pas de cookies de traçage. Les données sont stockées localement sur votre appareil via le <em>localStorage</em> du navigateur et ne sont pas transmises à des serveurs tiers (hormis l'API OpenStreetMap pour la vérification d'adresses).</p>
+    </div>
+
+    <!-- ══ MENTIONS LÉGALES ══ -->
+    <div class="legal-section" id="tab-mentions">
+      <h1>Mentions légales</h1>
+      <span class="legal-date">Conformément à la loi n° 2004-575 du 21 juin 2004 pour la confiance en l'économie numérique</span>
+
+      <h2>Éditeur du site</h2>
+      <p>
+        <strong>Red Gloves</strong><br>
+        Société de transport VTC<br>
+        21 rue Yves le Caignard<br>
+        92250 La Garenne Colombes, France<br>
+        Téléphone : <strong>07 83 67 14 58</strong><br>
+        Email : <a href="mailto:o.redgloves@gmail.com" style="color:var(--red)">o.redgloves@gmail.com</a>
+      </p>
+
+      <h2>Directeur de la publication</h2>
+      <p><strong>Othmane Baiche</strong> — Gérant de Red Gloves</p>
+
+      <h2>Développement</h2>
+      <p>Site développé dans le cadre d'un stage de licence MIAGE L3 par <strong>Mohamed Nazim Rahmoun</strong>, étudiant à l'Université Paris Nanterre, sous la supervision d'Othmane Baiche.</p>
+      <p>Technologies utilisées : HTML5, CSS3, JavaScript (Vanilla) — API OpenStreetMap Nominatim pour la vérification d'adresses.</p>
+
+      <h2>Hébergement</h2>
+      <p>Le site est hébergé sur <strong>GitHub Pages</strong> via le dépôt public :<br>
+      <a href="https://github.com/rahmounnazim/red-gloves-vtc" target="_blank" style="color:var(--red)">github.com/rahmounnazim/red-gloves-vtc</a></p>
+      <p>GitHub, Inc. — 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA</p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble du contenu de ce site (textes, design, code source) est la propriété de Red Gloves. Toute reproduction, même partielle, est interdite sans autorisation écrite préalable.</p>
+
+      <h2>API tierces</h2>
+      <p>Ce site utilise l'API <strong>OpenStreetMap Nominatim</strong> pour la vérification et l'autocomplétion des adresses. OpenStreetMap est un projet open source, libre et collaboratif (licence ODbL).</p>
+
+      <h2>Limitation de responsabilité</h2>
+      <p>Les informations contenues sur ce site sont fournies à titre indicatif. Red Gloves s'efforce de maintenir le service disponible 24h/24 mais ne peut garantir une disponibilité permanente du site.</p>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="logo">🥊 Red<span>Gloves</span></span>
+    <p>© 2026 Red Gloves — 21 rue Yves le Caignard, 92250 La Garenne Colombes</p>
+    <div class="footer-liens">
+      <a href="index.html">Accueil</a>
+      <a href="driver.html">Devenir chauffeur</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<script src="js/utils.js"></script>
+<script>
+  function afficherOnglet(id, btn) {
+    document.querySelectorAll('.legal-section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.legal-tab').forEach(b => b.classList.remove('actif'));
+    document.getElementById('tab-' + id).classList.add('visible');
+    btn.classList.add('actif');
+  }
+</script>
+</body>
+</html>

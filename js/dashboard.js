@@ -144,7 +144,32 @@ function chargerHistorique() {
     zone.innerHTML = `<div class="vide">🚗<br>Aucune course pour l'instant.<br>Réservez votre premier trajet !</div>`;
     return;
   }
-  zone.innerHTML = courses.map(c => `
+
+  zone.innerHTML = courses.map(c => {
+    /* Bouton annuler — uniquement si en attente */
+    const cancelBtn = c.statut === 'en_attente'
+      ? `<div class="cc-actions">
+           <button class="btn btn-outline btn-sm" onclick="annulerCourse('${c.id}',this)">❌ Annuler la course</button>
+         </div>`
+      : '';
+
+    /* Notation — uniquement si terminée */
+    let ratingHtml = '';
+    if (c.statut === 'terminee') {
+      if (c.noteClient) {
+        ratingHtml = `<div class="note-donnee">Votre note : ${'⭐'.repeat(c.noteClient)}${'☆'.repeat(5 - c.noteClient)} (${c.noteClient}/5) — Merci !</div>`;
+      } else {
+        const etoiles = [1,2,3,4,5].map(i =>
+          `<span class="etoile" onclick="noterChauffeur('${c.id}',${i})" onmouseover="survoleEtoiles(this,${i})" onmouseleave="resetEtoiles(this)">☆</span>`
+        ).join('');
+        ratingHtml = `<div class="noter-chauffeur">
+          <small>⭐ Notez votre chauffeur :</small>
+          <div class="etoiles">${etoiles}</div>
+        </div>`;
+      }
+    }
+
+    return `
     <div class="course-card">
       <div class="cc-header">
         <span class="cc-ico">${c.vehiculeIco || '🚗'}</span>
@@ -162,7 +187,63 @@ function chargerHistorique() {
         <span>${c.distanceKm} km • ${c.dureeMin} min • ${c.paiement === 'carte' ? '💳' : '💵'}</span>
         <strong class="prix-red">${c.prix}€</strong>
       </div>
-    </div>`).join('');
+      ${cancelBtn}
+      ${ratingHtml}
+    </div>`;
+  }).join('');
+}
+
+/* Annuler une course (double-clic pour confirmer) */
+function annulerCourse(id, btn) {
+  if (btn.dataset.confirm !== '1') {
+    btn.dataset.confirm = '1';
+    btn.textContent = '⚠️ Confirmer l\'annulation ?';
+    btn.classList.replace('btn-outline', 'btn-red');
+    setTimeout(() => {
+      if (btn.dataset.confirm === '1') {
+        btn.dataset.confirm = '';
+        btn.textContent = '❌ Annuler la course';
+        btn.classList.replace('btn-red', 'btn-outline');
+      }
+    }, 3500);
+    return;
+  }
+  DB.updateCourse(id, { statut: 'annulee', annuleeAt: new Date().toISOString() });
+  toast('Course annulée', 'info');
+  chargerHistorique();
+  majBadgeSidebar();
+}
+
+/* Notation du chauffeur (1 à 5 étoiles) */
+function noterChauffeur(courseId, note) {
+  DB.updateCourse(courseId, { noteClient: note });
+
+  /* Met à jour la note moyenne du chauffeur dans sa fiche */
+  const course = DB.getCourses().find(c => c.id === courseId);
+  if (course?.chauffeurId) {
+    const toutesLesCourses = DB.getCourses().filter(
+      c => c.chauffeurId === course.chauffeurId && c.noteClient
+    );
+    const total  = toutesLesCourses.reduce((s, c) => s + (c.noteClient || 0), 0) + note;
+    const nb     = toutesLesCourses.length + 1;
+    const moyenne = +(total / nb).toFixed(1);
+    DB.saveUsers(DB.getUsers().map(u =>
+      u.id === course.chauffeurId ? { ...u, note: moyenne } : u
+    ));
+  }
+
+  toast(`Merci ! Note envoyée : ${'⭐'.repeat(note)} (${note}/5)`, 'success');
+  chargerHistorique();
+}
+
+/* Hover sur les étoiles */
+function survoleEtoiles(el, n) {
+  [...el.parentNode.querySelectorAll('.etoile')].forEach((s, i) => {
+    s.textContent = i < n ? '⭐' : '☆';
+  });
+}
+function resetEtoiles(el) {
+  [...el.parentNode.querySelectorAll('.etoile')].forEach(s => s.textContent = '☆');
 }
 
 /* ══════════════════════════════════════════

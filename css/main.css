@@ -486,6 +486,14 @@ input[type="range"]:focus { outline: none; }
 /* Auto-refresh countdown */
 .refresh-cd { font-size: .75rem; color: var(--gray); text-align: right; margin-bottom: 8px; }
 
+/* ── Notation chauffeur (étoiles) ── */
+.noter-chauffeur { margin-top:10px; padding-top:10px; border-top:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.noter-chauffeur small { color:var(--gray2); font-size:.78rem; white-space:nowrap; }
+.etoiles { display:flex; gap:3px; }
+.etoile { font-size:1.4rem; cursor:pointer; transition:transform .12s ease; user-select:none; line-height:1; }
+.etoile:hover { transform:scale(1.3); }
+.note-donnee { margin-top:8px; padding-top:8px; border-top:1px solid var(--border); font-size:.8rem; color:var(--gray2); }
+
 /* Lien "voir booking" dans dashboard */
 .cta-booking-link {
   display: flex; align-items: center; gap: 14px;
