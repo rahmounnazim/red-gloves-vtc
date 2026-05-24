@@ -196,10 +196,26 @@ ul { list-style: none; }
 .step-label { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--gray2); margin-bottom: 14px; }
 
 /* Résultat trajet */
-.trajet-resultat { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-.tr-stat { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; display: flex; align-items: center; gap: 8px; font-size: .82rem; }
-.tr-stat span   { color: var(--gray); }
-.tr-stat strong { font-size: .95rem; font-weight: 700; }
+.trajet-resultat { background: var(--bg3); border: 1px solid rgba(212,43,43,.25); border-radius: var(--radius); padding: 16px; margin-top: 14px; }
+.trajet-resultat-titre { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-bottom: 12px; }
+.tr-stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 14px; }
+.tr-stat-big { background: var(--bg4); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 8px; text-align: center; }
+.tr-ico { font-size: 1.2rem; display: block; margin-bottom: 4px; }
+.tr-stat-big strong { display: block; font-size: .95rem; font-weight: 800; color: var(--red); }
+.tr-stat-big small  { display: block; font-size: .68rem; color: var(--gray); margin-top: 2px; }
+.tarifs-detail { border-top: 1px solid var(--border); padding-top: 12px; }
+.tarifs-titre { font-size: .75rem; font-weight: 700; color: var(--gray2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .8px; }
+.tarif-ligne { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: .82rem; color: var(--gray2); flex-wrap: wrap; }
+.tarif-ligne:last-child { border-bottom: none; }
+.tarif-ligne strong { color: var(--white); }
+.tarif-ligne > span:first-child { min-width: 90px; font-weight: 600; color: var(--white); }
+.tarif-ligne > span:nth-child(2) { flex: 1; }
+.tarif-val { font-weight: 800; color: var(--red); font-size: 1rem; white-space: nowrap; }
+
+/* Récap mini en tête d'étape 2 */
+.recap-trajet-mini { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.rtm-item { background: var(--bg4); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; font-size: .8rem; color: var(--gray2); flex: 1; text-align: center; }
+.rtm-item strong { color: var(--white); }
 
 /* Véhicules */
 .v-option { background: var(--bg3); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; margin-bottom: 8px; transition: var(--trans); }

@@ -41,8 +41,28 @@ document.getElementById('btn-calculer')?.addEventListener('click', () => {
   etat.distanceKm = haversine(etat.depart.lat, etat.depart.lon, etat.destination.lat, etat.destination.lon);
   etat.dureeMin   = Math.round(etat.distanceKm * 2.8 + 5); // estimation en minutes
 
-  document.getElementById('affich-distance').textContent = etat.distanceKm.toFixed(1) + ' km';
-  document.getElementById('affich-duree').textContent    = etat.dureeMin + ' min';
+  const prixStandard = (5  + etat.distanceKm * 1.8).toFixed(2);
+  const prixBusiness = (10 + etat.distanceKm * 2.8).toFixed(2);
+  const prixVan      = (15 + etat.distanceKm * 3.2).toFixed(2);
+
+  // Étape 1 — résumé rapide
+  document.getElementById('affich-distance').textContent  = etat.distanceKm.toFixed(1) + ' km';
+  document.getElementById('affich-duree').textContent     = etat.dureeMin + ' min';
+  document.getElementById('affich-prix-min').textContent  = prixStandard + '€';
+  document.getElementById('affich-eta').textContent       = '3 – 8 min';
+  // Étape 2 — récap mini + grille tarifaire
+  document.getElementById('recap-distance').textContent   = etat.distanceKm.toFixed(1) + ' km';
+  document.getElementById('recap-duree').textContent      = etat.dureeMin + ' min';
+  document.getElementById('recap-prix-min').textContent   = prixStandard + '€';
+  document.getElementById('tarif-standard').textContent   = prixStandard + '€';
+  document.getElementById('tarif-business').textContent   = prixBusiness + '€';
+  document.getElementById('tarif-van').textContent        = prixVan + '€';
+  // Étape 2 — grille tarifaire (IDs distincts pour éviter le doublon)
+  document.getElementById('tarif2-standard').textContent  = prixStandard + '€';
+  document.getElementById('tarif2-business').textContent  = prixBusiness + '€';
+  document.getElementById('tarif2-van').textContent       = prixVan + '€';
+
+  document.getElementById('trajet-resultat').classList.remove('cache');
 
   afficherVehicules();
   allerEtape(2);

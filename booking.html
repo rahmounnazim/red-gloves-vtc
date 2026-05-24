@@ -51,17 +51,85 @@
         <span>Les adresses sont vérifiées en temps réel via OpenStreetMap. Sélectionnez une suggestion dans la liste.</span>
       </div>
 
-      <div class="trajet-resultat cache" id="trajet-resultat">
-        <div class="tr-stat"><span>📏 Distance</span><strong id="affich-distance">—</strong></div>
-        <div class="tr-stat"><span>⏱ Durée est.</span><strong id="affich-duree">—</strong></div>
-      </div>
-
       <button class="btn btn-red btn-full" id="btn-calculer">Calculer le trajet →</button>
+
+      <!-- Résultat du calcul — affiché après validation des adresses -->
+      <div class="trajet-resultat cache" id="trajet-resultat">
+        <div class="trajet-resultat-titre">📊 Résumé du trajet</div>
+        <div class="tr-stats-grid">
+          <div class="tr-stat-big">
+            <span class="tr-ico">📏</span>
+            <strong id="affich-distance">—</strong>
+            <small>Distance réelle</small>
+          </div>
+          <div class="tr-stat-big">
+            <span class="tr-ico">⏱</span>
+            <strong id="affich-duree">—</strong>
+            <small>Durée estimée</small>
+          </div>
+          <div class="tr-stat-big">
+            <span class="tr-ico">💰</span>
+            <strong id="affich-prix-min">—</strong>
+            <small>À partir de</small>
+          </div>
+          <div class="tr-stat-big">
+            <span class="tr-ico">🚗</span>
+            <strong id="affich-eta">—</strong>
+            <small>Temps d'attente</small>
+          </div>
+        </div>
+        <div class="tarifs-detail">
+          <div class="tarifs-titre">📋 Grille tarifaire</div>
+          <div class="tarif-ligne">
+            <span>🚗 Red Standard</span>
+            <span>5€ de base + <strong>1,80€/km</strong></span>
+            <span id="tarif-standard" class="tarif-val">—</span>
+          </div>
+          <div class="tarif-ligne">
+            <span>🚙 Red Business</span>
+            <span>10€ de base + <strong>2,80€/km</strong></span>
+            <span id="tarif-business" class="tarif-val">—</span>
+          </div>
+          <div class="tarif-ligne">
+            <span>🚐 Red Van</span>
+            <span>15€ de base + <strong>3,20€/km</strong></span>
+            <span id="tarif-van" class="tarif-val">—</span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- ── ÉTAPE 2 : Véhicule ── -->
     <div class="etape cache" data-etape="2">
-      <div class="step-label">Choisissez votre véhicule</div>
+
+      <!-- Récap trajet toujours visible -->
+      <div class="recap-trajet-mini">
+        <div class="rtm-item">📏 <strong id="recap-distance">—</strong></div>
+        <div class="rtm-item">⏱ <strong id="recap-duree">—</strong></div>
+        <div class="rtm-item">💰 dès <strong id="recap-prix-min" class="red">—</strong></div>
+      </div>
+
+      <!-- Grille tarifaire -->
+      <div class="tarifs-detail">
+        <div class="tarifs-titre">📋 Tarifs estimés pour ce trajet</div>
+        <div class="tarif-ligne">
+          <span>🚗 Standard</span>
+          <span>5€ + <strong>1,80€/km</strong></span>
+          <span id="tarif2-standard" class="tarif-val">—</span>
+        </div>
+        <div class="tarif-ligne">
+          <span>🚙 Business</span>
+          <span>10€ + <strong>2,80€/km</strong></span>
+          <span id="tarif2-business" class="tarif-val">—</span>
+        </div>
+        <div class="tarif-ligne">
+          <span>🚐 Van</span>
+          <span>15€ + <strong>3,20€/km</strong></span>
+          <span id="tarif2-van" class="tarif-val">—</span>
+        </div>
+      </div>
+
+      <div class="step-label" style="margin-top:14px">Choisissez votre véhicule</div>
       <div id="liste-vehicules"></div>
       <div class="nav-btns">
         <button class="btn btn-outline" onclick="allerEtape(1)">← Retour</button>
