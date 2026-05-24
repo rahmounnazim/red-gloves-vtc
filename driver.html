@@ -19,14 +19,14 @@
 
 <body>
 
-  <nav class="navbar">
+  <nav class="navbar" id="navbar">
     <div class="container nav-inner">
       <a href="index.html" class="logo">🥊 Red<span>Gloves</span></a>
       <ul class="nav-links">
         <li><a href="index.html">Accueil</a></li>
         <li><a href="booking.html">Réserver</a></li>
-        <li><a href="auth.html" class="btn btn-red">Connexion</a></li>
       </ul>
+      <div id="nav-user"></div>
     </div>
   </nav>
 
@@ -220,7 +220,52 @@
   </footer>
 
   <div class="toast" id="toast"></div>
-  <script src="js/main.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    /* ── Simulateur de revenus ── */
+    function calculerRevenus() {
+      const heures = +document.getElementById('slider-heures').value;
+      const zone   = +document.getElementById('select-zone').value;
+      document.getElementById('affich-heures').textContent = heures + 'h';
+      // Estimation : ~25€/h de CA brut × 4,3 semaines × zone × 85% (après commission 15%)
+      const mensuel = Math.round(heures * 4.3 * 25 * zone * 0.85);
+      const el = document.getElementById('montant-sim');
+      if (el) el.textContent = mensuel.toLocaleString('fr-FR') + '€';
+    }
+    calculerRevenus(); // Initialisation au chargement
+
+    /* ── Formulaire de candidature ── */
+    function envoyerCandidature(e) {
+      e.preventDefault();
+      const prenom   = document.getElementById('c-prenom').value.trim();
+      const nom      = document.getElementById('c-nom').value.trim();
+      const email    = document.getElementById('c-email').value.trim();
+      const tel      = document.getElementById('c-tel').value.trim();
+      const vtc      = document.getElementById('c-vtc').value.trim();
+      const vehicule = document.getElementById('c-vehicule').value.trim();
+
+      if (!prenom || !nom || !email || !tel || !vtc || !vehicule) {
+        toast('Veuillez remplir tous les champs obligatoires', 'error'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        toast('Adresse email invalide', 'error'); return;
+      }
+      if (!/^(\+33|0)[0-9]{9}$/.test(tel.replace(/\s/g,''))) {
+        toast('Numéro de téléphone invalide (ex: 06 12 34 56 78)', 'error'); return;
+      }
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.classList.add('btn-loading'); btn.disabled = true;
+
+      setTimeout(() => {
+        btn.classList.remove('btn-loading'); btn.disabled = false;
+        toast(`🎉 Merci ${prenom} ! Candidature envoyée. Nous vous contactons sous 48h.`, 'success');
+        e.target.reset();
+        // Scroll vers le haut pour voir le toast
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 800);
+    }
+  </script>
 
 </body>
 </html>

@@ -359,4 +359,140 @@ ul { list-style: none; }
   .avantages-grid { grid-template-columns: repeat(2,1fr); }
   .simulateur   { grid-template-columns: 1fr; }
   .conditions-grid { grid-template-columns: repeat(2,1fr); }
+  /* Dashboard sidebar → barre horizontale sur mobile */
+  .dash-sidebar { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; padding: 10px 12px; gap: 8px; align-items: center; height: auto; }
+  .dash-sidebar > .btn { white-space: nowrap; flex-shrink: 0; }
+  .user-card { min-width: 160px; flex-shrink: 0; }
+  .en-ligne-bloc { white-space: nowrap; flex-shrink: 0; }
+  .sidebar-nav { flex-direction: row; flex-shrink: 0; gap: 4px; }
+  .sidebar-lien { white-space: nowrap; }
+  .dash-main { padding: 20px 16px; }
+  .tr-stats-grid { grid-template-columns: 1fr 1fr; }
 }
+@media (max-width: 600px) {
+  .nav-btns { flex-direction: column; }
+  .stats-dash { grid-template-columns: 1fr 1fr; }
+  .avantages-grid { grid-template-columns: 1fr; }
+  .conditions-grid { grid-template-columns: 1fr; }
+  .recap-trajet-mini { flex-direction: column; }
+}
+
+/* ═══════════════════════════════════════════════
+   POLISH — Animations, fluidité, micro-UX
+   ═══════════════════════════════════════════════ */
+
+/* Fade-in page */
+@keyframes fadeInPage { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+body { animation: fadeInPage .35s ease; }
+
+/* Étape booking — slide-in à l'affichage */
+.etape:not(.cache) { animation: slideInEtape .28s ease; }
+@keyframes slideInEtape { from { opacity:0; transform:translateX(14px); } to { opacity:1; transform:translateX(0); } }
+
+/* Section dashboard — fade-in à l'activation */
+.dash-section:not(.cache) { animation: fadeInPage .22s ease; }
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+/* Better focus ring sur les inputs */
+.champ input:focus, .champ select:focus, .champ textarea:focus {
+  box-shadow: 0 0 0 3px rgba(212,43,43,.18);
+}
+
+/* Bouton — état chargement */
+.btn-loading { pointer-events: none; opacity: .78; }
+.btn-loading::after {
+  content: ''; display: inline-block;
+  width: 13px; height: 13px;
+  border: 2px solid rgba(255,255,255,.3); border-top-color: #fff;
+  border-radius: 50%; margin-left: 8px;
+  animation: tourner .65s linear infinite; vertical-align: middle;
+}
+@keyframes tourner { to { transform: rotate(360deg); } }
+
+/* Dropdown autocomplete — animation */
+.adresse-dropdown { animation: dropIn .14s ease; }
+@keyframes dropIn { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } }
+
+/* Élément actif au clavier dans l'autocomplete */
+.adresse-dropdown li.kbd-actif { background: rgba(212,43,43,.14) !important; color: #fff; }
+
+/* Toast — layout avec icône */
+.toast { display: flex; align-items: center; gap: 10px; }
+.toast-ico { font-size: 1.1rem; flex-shrink: 0; }
+
+/* Confirmation — pop-in animé */
+.conf-ico { animation: popIn .5s cubic-bezier(.34,1.56,.64,1); }
+@keyframes popIn { from { transform:scale(.4); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+/* Badge notification sidebar (courses disponibles) */
+.badge-notif {
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--red); color: #fff;
+  font-size: .62rem; font-weight: 800;
+  min-width: 18px; height: 18px; border-radius: 9px; padding: 0 4px;
+  margin-left: 6px; vertical-align: middle;
+  animation: pulseNotif 2s ease-in-out infinite;
+}
+@keyframes pulseNotif { 0%,100% { transform:scale(1); } 50% { transform:scale(1.18); } }
+
+/* Adresses dans le résultat trajet (étape 1) */
+.trajet-adresses {
+  background: var(--bg4); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 10px 12px;
+  margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px;
+}
+.trajet-adresse-item { font-size: .8rem; color: var(--gray2); line-height: 1.4; }
+.trajet-adresse-item span { color: var(--white); font-weight: 500; }
+
+/* Course card — lift au hover */
+.course-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.course-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+
+/* Stat card — hover */
+.stat-dash-card { transition: transform .2s ease, border-color .2s ease; }
+.stat-dash-card:hover { border-color: rgba(212,43,43,.4); transform: translateY(-2px); }
+
+/* label-checkbox (driver.html) */
+.label-checkbox { display: flex; align-items: flex-start; gap: 8px; font-size: .83rem; color: var(--gray2); cursor: pointer; }
+.label-checkbox input[type="checkbox"] { width: auto; margin-top: 3px; flex-shrink: 0; }
+
+/* text-red (driver.html) */
+.text-red { color: var(--red); }
+
+/* Input range */
+input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 4px; background: var(--bg4);
+  border-radius: 2px; border: none; cursor: pointer; margin-top: 10px;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 20px; background: var(--red);
+  border-radius: 50%; cursor: pointer;
+  box-shadow: 0 2px 8px rgba(212,43,43,.45);
+  transition: transform .15s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+input[type="range"]:focus { outline: none; }
+
+/* État vide — meilleure mise en page */
+.vide { text-align: center; padding: 48px 20px; color: var(--gray); line-height: 1.7; font-size: .88rem; }
+
+/* Auto-refresh countdown */
+.refresh-cd { font-size: .75rem; color: var(--gray); text-align: right; margin-bottom: 8px; }
+
+/* Lien "voir booking" dans dashboard */
+.cta-booking-link {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(212,43,43,.07); border: 1px solid rgba(212,43,43,.2);
+  border-radius: var(--radius); padding: 16px 20px;
+  margin-top: 12px; font-size: .88rem; color: var(--gray2);
+  transition: var(--trans);
+}
+.cta-booking-link:hover { background: rgba(212,43,43,.12); border-color: rgba(212,43,43,.4); color: #fff; }
+.cta-booking-link .cta-ico { font-size: 1.8rem; }

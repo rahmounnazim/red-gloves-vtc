@@ -2,14 +2,15 @@
    UTILS.JS — Fonctions partagées sur tout le site
    ════════════════════════════════════════════ */
 
-/* ── Toast (notification) ── */
+/* ── Toast (notification avec icône) ── */
 function toast(msg, type = 'info') {
   let el = document.getElementById('toast');
   if (!el) return;
-  el.textContent = msg;
+  const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+  el.innerHTML = `<span class="toast-ico">${icons[type] || 'ℹ️'}</span><span>${msg}</span>`;
   el.className = 'toast show ' + type;
   clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 3500);
+  el._t = setTimeout(() => el.classList.remove('show'), 3800);
 }
 
 /* ── Navbar scroll ── */
@@ -58,9 +59,9 @@ const DB = {
    ══════════════════════════════════════════ */
 function creerAutocomplete(inputId, onSelect) {
   const input = document.getElementById(inputId);
-  if (!input) return;
+  if (!input) return () => null;
 
-  // Conteneur des suggestions (ajouté juste après l'input)
+  // Conteneur des suggestions
   const dropdown = document.createElement('ul');
   dropdown.className = 'adresse-dropdown';
   input.parentNode.appendChild(dropdown);
@@ -70,23 +71,54 @@ function creerAutocomplete(inputId, onSelect) {
   badge.className = 'adresse-badge';
   input.parentNode.appendChild(badge);
 
-  let adresseValidee = null; // Stocke l'adresse choisie (avec coordonnées GPS)
-
-  // Debounce : attend 450ms après la frappe avant d'appeler l'API
+  let adresseValidee = null;
+  let activeIdx = -1; // Index clavier actif
   let timer;
+
+  /* ── Debounce frappe : attend 450ms avant d'appeler l'API ── */
   input.addEventListener('input', () => {
     adresseValidee = null;
+    activeIdx = -1;
     badge.textContent = '';
     badge.className = 'adresse-badge';
     clearTimeout(timer);
     const q = input.value.trim();
     if (q.length < 3) { dropdown.innerHTML = ''; return; }
 
-    dropdown.innerHTML = '<li class="adresse-loading">Recherche…</li>';
+    dropdown.innerHTML = '<li class="adresse-loading">🔍 Recherche en cours…</li>';
     timer = setTimeout(() => rechercherNominatim(q), 450);
   });
 
-  // Appel à l'API OpenStreetMap Nominatim
+  /* ── Navigation clavier (↑↓ Enter Escape) ── */
+  input.addEventListener('keydown', (e) => {
+    const items = [...dropdown.querySelectorAll('li:not(.adresse-loading):not(.adresse-vide)')];
+    if (!items.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIdx = Math.min(activeIdx + 1, items.length - 1);
+      items.forEach((li, i) => li.classList.toggle('kbd-actif', i === activeIdx));
+      items[activeIdx]?.scrollIntoView({ block: 'nearest' });
+
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIdx = Math.max(activeIdx - 1, 0);
+      items.forEach((li, i) => li.classList.toggle('kbd-actif', i === activeIdx));
+      items[activeIdx]?.scrollIntoView({ block: 'nearest' });
+
+    } else if (e.key === 'Enter') {
+      if (activeIdx >= 0) {
+        e.preventDefault();
+        items[activeIdx]?.click();
+      }
+
+    } else if (e.key === 'Escape') {
+      dropdown.innerHTML = '';
+      activeIdx = -1;
+    }
+  });
+
+  /* ── Appel à l'API OpenStreetMap Nominatim ── */
   async function rechercherNominatim(query) {
     try {
       const url = 'https://nominatim.openstreetmap.org/search'
@@ -99,36 +131,39 @@ function creerAutocomplete(inputId, onSelect) {
       dropdown.innerHTML = '';
 
       if (!data.length) {
-        dropdown.innerHTML = '<li class="adresse-vide">Aucun résultat</li>';
+        dropdown.innerHTML = '<li class="adresse-vide">Aucun résultat — essayez une autre formulation</li>';
         return;
       }
 
       data.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = item.display_name;
+        const label = item.display_name;
+        // Tronquer les labels trop longs (OpenStreetMap renvoie parfois 120+ caractères)
+        li.textContent = label.length > 74 ? label.slice(0, 74) + '…' : label;
+        li.title = label; // Tooltip = adresse complète
         li.addEventListener('click', () => {
-          // Quand l'utilisateur clique sur une suggestion
-          input.value   = item.display_name;
-          adresseValidee = {
-            label: item.display_name,
-            lat:   parseFloat(item.lat),
-            lon:   parseFloat(item.lon),
-          };
+          // Quand l'utilisateur clique (ou appuie Entrée) sur une suggestion
+          input.value    = label;
+          adresseValidee = { label, lat: parseFloat(item.lat), lon: parseFloat(item.lon) };
           dropdown.innerHTML = '';
-          badge.textContent  = '✓ Validée';
+          activeIdx = -1;
+          badge.textContent  = '✓ Adresse validée';
           badge.className    = 'adresse-badge ok';
           if (onSelect) onSelect(adresseValidee);
         });
         dropdown.appendChild(li);
       });
     } catch {
-      dropdown.innerHTML = '<li class="adresse-vide">Erreur réseau</li>';
+      dropdown.innerHTML = '<li class="adresse-vide">⚠️ Erreur réseau — vérifiez votre connexion</li>';
     }
   }
 
   // Ferme le dropdown si on clique ailleurs
   document.addEventListener('click', (e) => {
-    if (!input.parentNode.contains(e.target)) dropdown.innerHTML = '';
+    if (!input.parentNode.contains(e.target)) {
+      dropdown.innerHTML = '';
+      activeIdx = -1;
+    }
   });
 
   // Retourne une fonction pour récupérer l'adresse validée de l'extérieur
@@ -162,7 +197,8 @@ function majNavbar() {
 
 function deconnexion() {
   DB.clearSession();
-  window.location.href = 'index.html';
+  toast('À bientôt ! 👋', 'info');
+  setTimeout(() => window.location.href = 'index.html', 700);
 }
 
 // Lance la mise à jour de la navbar dès que la page est chargée
