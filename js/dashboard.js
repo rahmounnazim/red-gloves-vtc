@@ -7,6 +7,10 @@ if (!session) throw new Error('Non connecté');
 
 const estChauffeur = session.role === 'chauffeur';
 
+// var évite le Temporal Dead Zone (TDZ) — accessible partout dans le script
+var _refreshTimer   = null;
+var _refreshSeconds = 8;
+
 /* ── Adapte l'interface selon le rôle ── */
 document.getElementById('role-badge').textContent    = estChauffeur ? '🚗' : '👤';
 document.getElementById('user-prenom').textContent   = session.prenom + ' ' + session.nom;
@@ -15,6 +19,11 @@ document.getElementById('user-email').textContent    = session.email;
 /* Affiche la bonne sidebar */
 document.getElementById('sidebar-client').classList.toggle('cache', estChauffeur);
 document.getElementById('sidebar-chauffeur').classList.toggle('cache', !estChauffeur);
+
+/* Rend le bloc "en ligne" visible pour les chauffeurs AVANT d'initialiser le toggle */
+if (estChauffeur) {
+  document.getElementById('bloc-en-ligne')?.classList.remove('cache');
+}
 
 /* ══════════════════════════════════════════
    NAVIGATION ENTRE SECTIONS
@@ -251,9 +260,6 @@ function resetEtoiles(el) {
    ══════════════════════════════════════════ */
 
 /* Courses disponibles (statut en_attente, pas encore acceptées) */
-let _refreshTimer = null;
-let _refreshSeconds = 8;
-
 function chargerDisponibles() {
   const zone = document.getElementById('liste-disponibles');
   if (!zone) return;
