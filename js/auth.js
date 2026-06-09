@@ -99,7 +99,10 @@ document.getElementById('form-inscription')?.addEventListener('submit', e => {
   }
 
   const newUser = {
-    id: DB.uid(), prenom, nom, email,
+    id: DB.uid(),
+    prenom:  sanitiser(prenom),
+    nom:     sanitiser(nom),
+    email,
     tel: tel.replace(/\s/g, ''),
     mdp: btoa(mdp), role,
     vehicule: vehicule || null,

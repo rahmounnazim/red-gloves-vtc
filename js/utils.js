@@ -170,6 +170,19 @@ function creerAutocomplete(inputId, onSelect) {
   return () => adresseValidee;
 }
 
+/* ── Sanitisation XSS — échappe les caractères HTML dangereux ──
+   Convertit < en &lt; et > en &gt; pour qu'un script injecté
+   dans un formulaire soit affiché comme du texte, pas exécuté. */
+function sanitiser(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 /* ── Redirige vers login si non connecté ── */
 function exigerConnexion(role = null) {
   const session = DB.getSession();

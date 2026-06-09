@@ -43,8 +43,10 @@ document.getElementById('btn-calculer')?.addEventListener('click', () => {
   btn.disabled = true;
 
   setTimeout(() => {
-    /* Calcul de distance réelle avec les coordonnées GPS (formule de Haversine) */
-    etat.distanceKm = haversine(etat.depart.lat, etat.depart.lon, etat.destination.lat, etat.destination.lon);
+    /* Calcul de distance réelle avec les coordonnées GPS (formule de Haversine)
+       Le coefficient 1.3 (+30%) corrige la différence entre la distance à vol d'oiseau
+       et la distance routière réelle (détours, infrastructures urbaines) */
+    etat.distanceKm = haversine(etat.depart.lat, etat.depart.lon, etat.destination.lat, etat.destination.lon) * 1.3;
     etat.dureeMin   = Math.round(etat.distanceKm * 2.8 + 5); // estimation en minutes
 
     const prixStandard = (5  + etat.distanceKm * 1.8).toFixed(2);
